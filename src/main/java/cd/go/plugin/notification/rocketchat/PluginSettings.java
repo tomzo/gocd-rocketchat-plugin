@@ -43,6 +43,10 @@ public class PluginSettings {
     @SerializedName("api_url")
     private String apiUrl;
 
+    @Expose
+    @SerializedName("room")
+    private String room;
+
     public static PluginSettings fromJSON(String json) {
         return GSON.fromJson(json, PluginSettings.class);
     }
@@ -77,5 +81,13 @@ public class PluginSettings {
 
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

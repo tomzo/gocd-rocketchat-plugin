@@ -37,16 +37,20 @@ public class ValidateConfigurationExecutorTest {
                 "    \"key\": \"go_server_url\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"message\": \"API URL must not be blank.\",\n" +
+                "    \"message\": \"Rocketchat API URL must not be blank.\",\n" +
                 "    \"key\": \"api_url\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"message\": \"API User must not be blank.\",\n" +
+                "    \"message\": \"Rocketchat API User must not be blank.\",\n" +
                 "    \"key\": \"api_user\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"message\": \"API Key must not be blank.\",\n" +
+                "    \"message\": \"Rocketchat API password must not be blank.\",\n" +
                 "    \"key\": \"api_key\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"message\": \"Rocketchat room must not be blank.\",\n" +
+                "    \"key\": \"room\"\n" +
                 "  }\n" +
                 "]", response.responseBody(), true);
     }
@@ -57,6 +61,7 @@ public class ValidateConfigurationExecutorTest {
         settings.put("api_url", "https://api.example.com");
         settings.put("api_user", "bob");
         settings.put("api_key", "p@ssw0rd");
+        settings.put("room", "general");
         settings.put("go_server_url", "https://ci.example.com");
         GoPluginApiResponse response = new ValidateConfigurationExecutor(settings).execute();
 

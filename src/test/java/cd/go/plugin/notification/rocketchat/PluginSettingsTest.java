@@ -28,12 +28,14 @@ public class PluginSettingsTest {
                 "\"go_server_url\": \"https://build.go.cd/go\", " +
                 "\"api_user\": \"bob\", " +
                 "\"api_key\": \"p@ssw0rd\", " +
+                "\"room\": \"builds\", " +
                 "\"api_url\": \"https://cloud.example.com/api/v1\" " +
                 "}");
 
         assertThat(pluginSettings.getGoServerUrl(), is("https://build.go.cd/go"));
         assertThat(pluginSettings.getApiUser(), is("bob"));
         assertThat(pluginSettings.getApiKey(), is("p@ssw0rd"));
+        assertThat(pluginSettings.getRoom(), is("builds"));
         assertThat(pluginSettings.getApiUrl(), is("https://cloud.example.com/api/v1"));
     }
 }

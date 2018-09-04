@@ -34,16 +34,16 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 @Extension
-public class ExamplePlugin implements GoPlugin {
+public class RocketChatPlugin implements GoPlugin {
 
-    public static final Logger LOG = Logger.getLoggerFor(ExamplePlugin.class);
+    public static final Logger LOG = Logger.getLoggerFor(RocketChatPlugin.class);
 
     private GoApplicationAccessor accessor;
     private PluginRequest pluginRequest;
     private RocketChatService chatService;
     private MessageBuilderService messageBuilder;
 
-    public ExamplePlugin() {
+    public RocketChatPlugin() {
         chatService = new RocketChatService();
         this.messageBuilder = new MessageBuilderService();
     }
@@ -56,6 +56,11 @@ public class ExamplePlugin implements GoPlugin {
 
     @Override
     public GoPluginApiResponse handle(GoPluginApiRequest request) throws UnhandledRequestTypeException {
+        if(request == null)
+        {
+            LOG.error("Request in plugin is null");
+            throw new RuntimeException("Request from server was null");
+        }
         try {
             switch (Request.fromString(request.requestName())) {
                 case PLUGIN_SETTINGS_GET_VIEW:
@@ -76,6 +81,7 @@ public class ExamplePlugin implements GoPlugin {
                     throw new UnhandledRequestTypeException(request.requestName());
             }
         } catch (Exception e) {
+            LOG.error("Error thrown in plugin",e);
             throw new RuntimeException(e);
         }
     }

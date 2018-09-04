@@ -52,22 +52,28 @@ public class GetPluginConfigurationExecutorTest {
                 "    \"display-order\": \"0\"\n" +
                 "  },\n" +
                 "  \"api_url\": {\n" +
-                "    \"display-name\": \"API URL\",\n" +
+                "    \"display-name\": \"Rocketchat API URL\",\n" +
                 "    \"required\": true,\n" +
                 "    \"secure\": false,\n" +
                 "    \"display-order\": \"1\"\n" +
                 "  },\n" +
                 "  \"api_user\": {\n" +
-                "    \"display-name\": \"API User\",\n" +
+                "    \"display-name\": \"Rocketchat API User\",\n" +
                 "    \"required\": true,\n" +
                 "    \"secure\": false,\n" +
                 "    \"display-order\": \"2\"\n" +
                 "  },\n" +
                 "  \"api_key\": {\n" +
-                "    \"display-name\": \"API Key\",\n" +
+                "    \"display-name\": \"Rocketchat API password\",\n" +
                 "    \"required\": true,\n" +
                 "    \"secure\": false,\n" +
                 "    \"display-order\": \"3\"\n" +
+                "  },\n" +
+                "  \"room\": {\n" +
+                "    \"display-name\": \"Rocketchat room\",\n" +
+                "    \"required\": true,\n" +
+                "    \"secure\": false,\n" +
+                "    \"display-order\": \"4\"\n" +
                 "  }\n" +
                 "}";
 

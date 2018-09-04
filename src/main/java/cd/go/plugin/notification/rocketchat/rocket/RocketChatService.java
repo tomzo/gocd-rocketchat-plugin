@@ -32,7 +32,8 @@ public class RocketChatService {
             RocketChatSettings settings = new RocketChatSettings(
                     pluginSettings.getApiUrl(),
                     pluginSettings.getApiUser(),
-                    pluginSettings.getApiKey());
+                    pluginSettings.getApiKey(),
+                    pluginSettings.getRoom());
             this.configure(settings);
         }
         else {
@@ -41,7 +42,7 @@ public class RocketChatService {
     }
 
     public void postMessage(Message msg) throws IOException {
-        Room room = new Room("general", false); //TODO: room name from settings
+        Room room = new Room(this.settings.getRoom(), false);
         this.rc.getChatApi().postMessage(room, msg);
     }
 }
