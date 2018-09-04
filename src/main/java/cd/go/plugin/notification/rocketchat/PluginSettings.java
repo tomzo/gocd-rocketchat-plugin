@@ -62,4 +62,20 @@ public class PluginSettings {
     public String getGoServerUrl() {
         return goServerUrl;
     }
+
+    public void setGoServerUrl(String goServerUrl) {
+        this.goServerUrl = goServerUrl;
+    }
+
+    public void setApiUser(String apiUser) {
+        this.apiUser = apiUser;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
+    }
 }

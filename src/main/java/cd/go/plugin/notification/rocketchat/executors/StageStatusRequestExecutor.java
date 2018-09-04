@@ -19,6 +19,7 @@ package cd.go.plugin.notification.rocketchat.executors;
 import cd.go.plugin.notification.rocketchat.PluginRequest;
 import cd.go.plugin.notification.rocketchat.RequestExecutor;
 import cd.go.plugin.notification.rocketchat.requests.StageStatusRequest;
+import cd.go.plugin.notification.rocketchat.rocket.MessageBuilderService;
 import cd.go.plugin.notification.rocketchat.rocket.RocketChatService;
 import com.github.baloise.rocketchatrestclient.model.Message;
 import com.google.gson.FieldNamingPolicy;
@@ -37,11 +38,13 @@ public class StageStatusRequestExecutor implements RequestExecutor {
 
     private final StageStatusRequest request;
     private RocketChatService chat;
+    private MessageBuilderService messageBuilderService;
     private final PluginRequest pluginRequest;
 
-    public StageStatusRequestExecutor(StageStatusRequest request, RocketChatService chat, PluginRequest pluginRequest) {
+    public StageStatusRequestExecutor(StageStatusRequest request, RocketChatService chat, MessageBuilderService messageBuilderService, PluginRequest pluginRequest) {
         this.request = request;
         this.chat = chat;
+        this.messageBuilderService = messageBuilderService;
         this.pluginRequest = pluginRequest;
     }
 
@@ -59,8 +62,9 @@ public class StageStatusRequestExecutor implements RequestExecutor {
     }
 
     protected void sendNotification() throws Exception {
-        // The request.pipeline object has all the details about the pipeline, materials, stages and jobs
-        String text = format("Stage status changed {0}", request.pipeline.stage.name);
-        chat.postMessage(new Message(text));
+        Message msg = messageBuilderService.onStageStatusChanged(pluginRequest, request.pipeline);
+        if(msg != null) {
+            chat.postMessage(msg);
+        }
     }
 }

@@ -19,6 +19,7 @@ package cd.go.plugin.notification.rocketchat.requests;
 import cd.go.plugin.notification.rocketchat.executors.StageStatusRequestExecutor;
 import cd.go.plugin.notification.rocketchat.PluginRequest;
 import cd.go.plugin.notification.rocketchat.RequestExecutor;
+import cd.go.plugin.notification.rocketchat.rocket.MessageBuilderService;
 import cd.go.plugin.notification.rocketchat.rocket.RocketChatService;
 import cd.go.plugin.notification.rocketchat.utils.DefaultDateTypeAdapter;
 import com.google.gson.FieldNamingPolicy;
@@ -44,13 +45,16 @@ public class StageStatusRequest {
         return GSON.fromJson(json, StageStatusRequest.class);
     }
 
-    public RequestExecutor executor(RocketChatService chatService, PluginRequest pluginRequest) {
-        return new StageStatusRequestExecutor(this, chatService, pluginRequest);
+    public RequestExecutor executor(RocketChatService chatService, MessageBuilderService messageBuilderService, PluginRequest pluginRequest) {
+        return new StageStatusRequestExecutor(this, chatService, messageBuilderService, pluginRequest);
     }
 
     public static class Pipeline {
         @SerializedName("name")
         public String name;
+
+        @SerializedName("label")
+        public String label;
 
         @SerializedName("counter")
         public String counter;

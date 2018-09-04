@@ -32,7 +32,7 @@ public class NotificationInterestedInExecutor implements RequestExecutor {
         JsonObject jsonObject = new JsonObject();
         JsonArray notifications = new JsonArray();
         notifications.add(Request.REQUEST_STAGE_STATUS.requestName());
-        notifications.add(Request.REQUEST_AGENT_STATUS.requestName());
+        // not used notifications.add(Request.REQUEST_AGENT_STATUS.requestName());
         jsonObject.add("notifications", notifications);
 
         DefaultGoPluginApiResponse defaultGoPluginApiResponse = new DefaultGoPluginApiResponse(200);

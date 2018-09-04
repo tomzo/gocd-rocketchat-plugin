@@ -40,6 +40,7 @@ public class StageStatusRequestTest {
                 "  \"pipeline\": {\n" +
                 "    \"name\": \"pipeline-name\",\n" +
                 "    \"counter\": \"1\",\n" +
+                "    \"label\": \"pipeline-label\",\n" +
                 "    \"group\": \"pipeline-group\",\n" +
                 "    \"build-cause\": [\n" +
                 "      {\n" +
