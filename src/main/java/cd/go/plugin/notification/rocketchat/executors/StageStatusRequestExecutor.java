@@ -19,6 +19,8 @@ package cd.go.plugin.notification.rocketchat.executors;
 import cd.go.plugin.notification.rocketchat.PluginRequest;
 import cd.go.plugin.notification.rocketchat.RequestExecutor;
 import cd.go.plugin.notification.rocketchat.requests.StageStatusRequest;
+import cd.go.plugin.notification.rocketchat.rocket.RocketChatService;
+import com.github.baloise.rocketchatrestclient.model.Message;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,14 +30,18 @@ import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static java.text.MessageFormat.format;
+
 public class StageStatusRequestExecutor implements RequestExecutor {
     private static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
     private final StageStatusRequest request;
+    private RocketChatService chat;
     private final PluginRequest pluginRequest;
 
-    public StageStatusRequestExecutor(StageStatusRequest request, PluginRequest pluginRequest) {
+    public StageStatusRequestExecutor(StageStatusRequest request, RocketChatService chat, PluginRequest pluginRequest) {
         this.request = request;
+        this.chat = chat;
         this.pluginRequest = pluginRequest;
     }
 
@@ -53,9 +59,8 @@ public class StageStatusRequestExecutor implements RequestExecutor {
     }
 
     protected void sendNotification() throws Exception {
-        // TODO: Implement this. The request.pipeline object has all the details about the pipeline, materials, stages and jobs
-        // If you need access to settings like API keys, URLs, then call PluginRequest#getPluginSettings
-//        PluginSettings pluginSettings = pluginRequest.getPluginSettings();
-        throw new UnsupportedOperationException("not implemented");
+        // The request.pipeline object has all the details about the pipeline, materials, stages and jobs
+        String text = format("Stage status changed {0}", request.pipeline.stage.name);
+        chat.postMessage(new Message(text));
     }
 }

@@ -22,6 +22,7 @@ import cd.go.plugin.notification.rocketchat.executors.NotificationInterestedInEx
 import cd.go.plugin.notification.rocketchat.requests.AgentStatusRequest;
 import cd.go.plugin.notification.rocketchat.requests.StageStatusRequest;
 import cd.go.plugin.notification.rocketchat.requests.ValidatePluginSettings;
+import cd.go.plugin.notification.rocketchat.rocket.RocketChatService;
 import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
@@ -38,6 +39,11 @@ public class ExamplePlugin implements GoPlugin {
 
     private GoApplicationAccessor accessor;
     private PluginRequest pluginRequest;
+    private RocketChatService chatService;
+
+    public ExamplePlugin() {
+        chatService = new RocketChatService();
+    }
 
     @Override
     public void initializeGoApplicationAccessor(GoApplicationAccessor accessor) {
@@ -54,9 +60,11 @@ public class ExamplePlugin implements GoPlugin {
                 case REQUEST_NOTIFICATIONS_INTERESTED_IN:
                     return new NotificationInterestedInExecutor().execute();
                 case REQUEST_STAGE_STATUS:
-                    return StageStatusRequest.fromJSON(request.requestBody()).executor(pluginRequest).execute();
+                    chatService.configure(this.pluginRequest);
+                    return StageStatusRequest.fromJSON(request.requestBody()).executor(chatService, pluginRequest).execute();
                 case REQUEST_AGENT_STATUS:
-                    return AgentStatusRequest.fromJSON(request.requestBody()).executor(pluginRequest).execute();
+                    chatService.configure(this.pluginRequest);
+                    return AgentStatusRequest.fromJSON(request.requestBody()).executor(chatService, pluginRequest).execute();
                 case PLUGIN_SETTINGS_GET_CONFIGURATION:
                     return new GetPluginConfigurationExecutor().execute();
                 case PLUGIN_SETTINGS_VALIDATE_CONFIGURATION:

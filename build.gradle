@@ -36,6 +36,9 @@ targetCompatibility = 1.8
 // In this section you declare where to find the dependencies of your project
 repositories {
     mavenCentral()
+    maven {
+        url "https://repo.craftyn.com/repository/snapshots/"
+    }
 }
 
 dependencies {
@@ -43,6 +46,7 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.6.2'
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
+    compile group: 'com.github.baloise', name: 'rocket-chat-rest-client', version: '0.1.2-SNAPSHOT'
 
 
     testCompile group: 'junit', name: 'junit', version: '4.12'

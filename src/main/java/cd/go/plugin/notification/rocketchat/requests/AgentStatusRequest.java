@@ -19,6 +19,7 @@ package cd.go.plugin.notification.rocketchat.requests;
 import cd.go.plugin.notification.rocketchat.PluginRequest;
 import cd.go.plugin.notification.rocketchat.RequestExecutor;
 import cd.go.plugin.notification.rocketchat.executors.AgentStatusRequestExecutor;
+import cd.go.plugin.notification.rocketchat.rocket.RocketChatService;
 import cd.go.plugin.notification.rocketchat.utils.DefaultDateTypeAdapter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -41,7 +42,7 @@ public class AgentStatusRequest {
         return GSON.fromJson(json, AgentStatusRequest.class);
     }
 
-    public RequestExecutor executor(PluginRequest pluginRequest) {
+    public RequestExecutor executor(RocketChatService chatService, PluginRequest pluginRequest) {
         return new AgentStatusRequestExecutor(this, pluginRequest);
     }
 
