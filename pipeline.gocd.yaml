@@ -4,17 +4,17 @@ pipelines:
     label_template: "${git[:8]}"
     materials:
       git:
-        git: "git@git.ai-traders.com:gocd/gocd-rocketchat-plugin.git"
-        branch: master
+        type: configrepo
     stages:
       - build:
           clean_workspace: true
-          jobs:
-            build:
-              elastic_profile_id: w.c1.m1024.e5
-              tasks:
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - "echo \"pipeline not created yet\" && exit 1"
+          elastic_profile_id: w.c2.m2048.e10
+          artifacts:
+           - build:
+               source: build/libs/*.jar
+               destination: build/libs
+          tasks:
+           - exec:
+               command: ide
+               arguments:
+                - gradle test jar

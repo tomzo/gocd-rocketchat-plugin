@@ -1,0 +1,44 @@
+version: '2'
+services:
+  default:
+    image: docker-registry.ai-traders.com/java-ide:0.3.1
+    links:
+      - server:server
+    depends_on:
+      - agent
+    volumes:
+      - ${IDE_IDENTITY}:/ide/identity:ro
+      - ${IDE_WORK}:/ide/work
+    env_file:
+      - ${ENV_FILE}
+  server:
+    image: docker-registry.ai-traders.com/ai_gocd_server:0.2.9_18.3.0
+    environment:
+      AIT_ENVIRONMENT: development
+      GO_SERVER: localhost:8153
+    volumes:
+      - ${IDE_WORK}:/ide/work
+      - ${IDE_WORK}/data/go-server:/var/lib/go-server
+      - ${IDE_WORK}/data/backup:/var/lib/go-server/artifacts/serverBackups
+      - ${IDE_WORK}/build/libs:/go-addons
+    ports:
+      - 8153:8153
+      - 8154:8154
+  agent:
+    container_name: gocd_agent1
+    image: "docker-registry.ai-traders.com/gocd_agent_dind:0.11.1"
+    privileged: true
+    hostname: agent1
+    links:
+      - server:server
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - "/lib/modules:/lib/modules:ro"
+      - "/sys/fs/cgroup:/sys/fs/cgroup"
+      - ${IDE_WORK}/data/go-agent/pipelines:/var/lib/go-agent/pipelines/
+      - ${IDE_WORK}/data/go-agent/dind:/var/lib/docker
+    environment:
+      - "AIT_ENVIRONMENT=development"
+      - "AGENT_HOSTNAME=agent1"
+      - "GO_SERVER_URL=https://server:8154/go"
+      - AIT_SKIP_SECRETS=yes
