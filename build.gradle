@@ -17,7 +17,7 @@
 apply plugin: 'java'
 
 group = 'cd.go.plugin.notification.rocketchat'
-version = '0.1.0'
+version = '0.1.1'
 
 // these values that go into plugin.xml
 project.ext.pluginDesc = [
