@@ -20,9 +20,9 @@ Then you must configure access to rocketchat and room for notifications on plugi
 
 ![settings](settings.png)
 
-##Configuring the plugin for GoCD on Kubernetes using Helm
+## Configuring the plugin for GoCD on Kubernetes using Helm
 
-###Adding the plugin
+### Adding the plugin
 - In order to add this plugin, you have to use a local values.yaml file that will override the default [values.yaml](https://github.com/helm/charts/blob/master/stable/gocd/values.yaml) present in the official GoCD helm chart repo.
 - Add the .jar file link from the releases section to the `env.extraEnvVars` section as a new environment variable.
 - The environment variable name must have `GOCD_PLUGIN_INSTALL` prefixed to it.
